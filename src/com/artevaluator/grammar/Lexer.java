@@ -6,7 +6,7 @@ public class Lexer {
     ArrayList<Token> tokenized;
     Terminals tr;
     enum State {
-        A,B,C
+        A,B,C,D
     };
 
     public void tokenize(){
@@ -42,6 +42,10 @@ public class Lexer {
                             tok += ch;
                             st = State.C;
                         }
+                        else if (ch == '.'){
+                            tok += ch;
+                            st = State.D;
+                        }
                         else if(ch == '\0') {
                             tokenized.add(new Token("operand",tok));
                             st = State.A;
@@ -69,6 +73,26 @@ public class Lexer {
                         else{
                             //throw error
                             System.out.println("invalid literal");
+                        }
+                        break;
+                case D: if (ch == '.') {
+                            //throw error
+                            System.out.println("invalid expression");
+                            break;
+                        }
+                        else if (tr.getType(ch) == "digit") {
+                            tok += ch;
+                            st = State.D;
+                        }
+                        else if(tr.getType(ch) == "basicOperator") {
+                            tokenized.add(new Token("operand",tok));
+                            tok = "";
+                            tok += ch;
+                            st = State.C;
+                        }
+                        else {
+                            //throw error
+                            System.out.println("Invalid");
                         }
                         break;
                default:
