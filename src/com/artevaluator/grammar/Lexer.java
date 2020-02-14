@@ -55,11 +55,7 @@ public class Lexer {
                             System.out.println("invalid literal");
                         }
                         break;
-                case C: if( (ch == '+') || (ch == '-') || (ch == '*') ){
-                        tok += ch;
-                        st = State.C;
-                        }
-                        else if (tr.getType(ch) == "digit"){
+                case C: if (tr.getType(ch) == "digit"){
                             tokenized.add(new Token("operator",tok));
                             tok = "";
                             tok += ch;

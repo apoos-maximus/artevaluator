@@ -1,7 +1,7 @@
 package com.artevaluator;
 import com.artevaluator.grammar.Lexer;
+import com.artevaluator.grammar.SyntaxAnalyser;
 import  com.artevaluator.grammar.Token;
-import com.artevaluator.grammar.SemanticAnalyser;
 
 import java.util.ArrayList;
 
@@ -16,8 +16,8 @@ public class Main {
             System.out.println(a.get(i).tokToString());
         }
 
-        SemanticAnalyser ss = new SemanticAnalyser(args[0]+'\0');
-        ss.parse();
+        SyntaxAnalyser ss = new SyntaxAnalyser(a);
+
 
     }
 }
