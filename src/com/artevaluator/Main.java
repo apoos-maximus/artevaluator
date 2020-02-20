@@ -16,8 +16,6 @@ public class Main {
             System.out.println(a.get(i).tokToString());
         }
 
-        SyntaxAnalyser ss = new SyntaxAnalyser(a);
-
-
+        SyntaxAnalyser ss = new SyntaxAnalyser(a,args[0]+'\0');
     }
 }
