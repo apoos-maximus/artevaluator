@@ -9,6 +9,9 @@ public class Token {
         type = a;
         value = b;
     }
+    public void buildToken(char a){
+        value += a;
+    }
 
     public String tokToString() {
         return "<" + type + "," + value + ">" ;

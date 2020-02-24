@@ -42,6 +42,7 @@ title __GRAMMAR's Class Diagram__\n
   namespace com.artevaluator {
     namespace grammar {
       class com.artevaluator.grammar.Terminals {
+          ~ alpha : Set<Character>
           ~ basicOperators : Set<Character>
           ~ digits : Set<Character>
           ~ punctuators : Set<Character>
