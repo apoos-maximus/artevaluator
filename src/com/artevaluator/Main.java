@@ -4,11 +4,15 @@ import  com.artevaluator.grammar.Token;
 import  com.artevaluator.grammar.Parser;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
-        Lexer lexr = new Lexer(args[0]+"##");
+        Scanner sc = new Scanner(System.in);
+        String exp = sc.nextLine();
+
+        Lexer lexr = new Lexer(exp+"##");
         lexr.tokenize();
         ArrayList<Token> a = lexr.getTokenized();
         a.add(new Token("EOF","EOF"));

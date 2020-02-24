@@ -320,47 +320,49 @@ public class Lexer {
                 tokenized.add(operand());
             }
 //            System.out.println(arrayInput[pointer]);
-            if( arrayInput[pointer] == '(' ){
+            else if( arrayInput[pointer] == '(' ){
                 pointer++;
                 tokenized.add(leftParen());
             }
 
-            if( arrayInput[pointer] == ')' ){
+            else if( arrayInput[pointer] == ')' ){
                 pointer++;
                 tokenized.add(rightParen());
             }
-            if( arrayInput[pointer] == '+' ){
+            else if( arrayInput[pointer] == '+' ){
                 pointer++;
                 tokenized.add(plus());
             }
-            if( arrayInput[pointer] == '-' ){
+            else if( arrayInput[pointer] == '-' ){
                 pointer++;
                 tokenized.add(minus());
             }
-            if( arrayInput[pointer] == '*' ){
+            else if( arrayInput[pointer] == '*' ){
                 pointer++;
                 tokenized.add(mul());
             }
-            if( arrayInput[pointer] == '/' ){
+            else if( arrayInput[pointer] == '/' ){
                 pointer++;
                 tokenized.add(div());
             }
-            if (arrayInput[pointer] == 's'){
+            else if (arrayInput[pointer] == 's'){
                 pointer++;
                 tokenized.add(sin());
             }
-            if (arrayInput[pointer] == 'c'){
+            else if (arrayInput[pointer] == 'c'){
                 pointer++;
                 tokenized.add(cos());
             }
-            if (arrayInput[pointer] == 't'){
+            else if (arrayInput[pointer] == 't'){
                 pointer++;
                 tokenized.add(tan());
             }
-            if (arrayInput[pointer] == 'l'){
+            else if (arrayInput[pointer] == 'l'){
                 pointer++;
                 tokenized.add(log());
             }
+            else
+                System.out.println("kya yaar!");
 
         }
     }
