@@ -1,6 +1,7 @@
 package com.artevaluator;
 import com.artevaluator.grammar.Lexer;
 import  com.artevaluator.grammar.Token;
+import  com.artevaluator.grammar.Parser;
 
 import java.util.ArrayList;
 
@@ -10,9 +11,12 @@ public class Main {
         Lexer lexr = new Lexer(args[0]+"##");
         lexr.tokenize();
         ArrayList<Token> a = lexr.getTokenized();
-
-        for(int i = 0; i < a.size(); i++){
-            System.out.print(a.get(i).tokToString() + " ");
+        a.add(new Token("EOF","EOF"));
+        for (Token token : a) {
+            System.out.println(token.tokToString() + " ");
         }
+
+        Parser parsr = new Parser(a);
+        System.out.println(parsr.isValid());
     }
 }
