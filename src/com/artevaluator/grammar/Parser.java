@@ -19,7 +19,7 @@ public class Parser {
             if (expr() == false)
                 result = false;
             else if (curTok.tokCheckVal(")") == false) {
-                System.out.println(") expected -- syntax error");
+                System.out.println(") expected -- expr syntax error" + " " + tokenStream.get(tokPointer-2).tokToString()+tokenStream.get(tokPointer-1).tokToString()+tokenStream.get(tokPointer).tokToString()+tokenStream.get(tokPointer+1).tokToString()+tokenStream.get(tokPointer+2).tokToString());
                 result = false;
             } else
                 curTok = nextToken();
@@ -30,7 +30,7 @@ public class Parser {
                 if (expr() == false)
                     result = false;
                 else if (curTok.tokCheckVal(")") == false) {
-                    System.out.println(") expected -- syntax error");
+                    System.out.println(") expected -- sin syntax error" + " " + tokenStream.get(tokPointer-2).tokToString()+tokenStream.get(tokPointer-1).tokToString()+tokenStream.get(tokPointer).tokToString()+tokenStream.get(tokPointer+1).tokToString()+tokenStream.get(tokPointer+2).tokToString());
                     result = false;
                 } else
                     curTok = nextToken();
@@ -44,7 +44,7 @@ public class Parser {
                 if (expr() == false)
                     result = false;
                 else if (curTok.tokCheckVal(")") == false) {
-                    System.out.println(") expected -- syntax error");
+                    System.out.println(") expected -- cos syntax error " + tokenStream.get(tokPointer-2).tokToString()+tokenStream.get(tokPointer-1).tokToString()+tokenStream.get(tokPointer).tokToString()+tokenStream.get(tokPointer+1).tokToString()+tokenStream.get(tokPointer+2).tokToString());
                     result = false;
                 } else
                     curTok = nextToken();
@@ -58,7 +58,7 @@ public class Parser {
                 if (expr() == false)
                     result = false;
                 else if (curTok.tokCheckVal(")") == false) {
-                    System.out.println(") expected -- syntax error");
+                    System.out.println(") expected -- tan syntax error " + tokenStream.get(tokPointer-2).tokToString()+tokenStream.get(tokPointer-1).tokToString()+tokenStream.get(tokPointer).tokToString()+tokenStream.get(tokPointer+1).tokToString()+tokenStream.get(tokPointer+2).tokToString());
                     result = false;
                 } else
                     curTok = nextToken();
@@ -71,7 +71,7 @@ public class Parser {
                 if (expr() == false)
                     result = false;
                 else if (curTok.tokCheckVal(")") == false) {
-                    System.out.println(") expected -- syntax error");
+                    System.out.println(") expected -- log syntax error " + tokenStream.get(tokPointer-2).tokToString()+tokenStream.get(tokPointer-1).tokToString()+tokenStream.get(tokPointer).tokToString()+tokenStream.get(tokPointer+1).tokToString()+tokenStream.get(tokPointer+2).tokToString());
                     result = false;
                 } else
                     curTok = nextToken();

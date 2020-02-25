@@ -244,7 +244,7 @@ public class Lexer {
         while(true) {
             switch(st){
                 case t: if(arrayInput[pointer] == 'a') {
-                    tangent.buildToken('o');
+                    tangent.buildToken('a');
                     pointer++;
                     st = tanState.a;
                 }
@@ -317,50 +317,51 @@ public class Lexer {
                 tokenized.add(leftParen());
             }
 
-            else if( arrayInput[pointer] == ')' ){
+             if( arrayInput[pointer] == ')' ){
                 pointer++;
                 tokenized.add(rightParen());
             }
-            else if( arrayInput[pointer] == '+' ){
+             if( arrayInput[pointer] == '+' ){
                 pointer++;
                 tokenized.add(plus());
             }
-            else if( arrayInput[pointer] == '-' ){
+             if( arrayInput[pointer] == '-' ){                                      // should be checked after operand condition
                 pointer++;
                 tokenized.add(minus());
             }
-            else if ( (arrayInput[pointer] == '-') || (tr.getType(arrayInput[pointer]).equals("digit")) ) {
+             if ( (arrayInput[pointer] == '-') || (tr.getType(arrayInput[pointer]).equals("digit")) ) { //should be checked before solely minus
                 pointer++;
                 tokenized.add(operand());
             }
-            else if( arrayInput[pointer] == '*' ){
+
+             if( arrayInput[pointer] == '*' ){
                 pointer++;
                 tokenized.add(mul());
             }
-            else if( arrayInput[pointer] == '/' ){
+             if( arrayInput[pointer] == '/' ){
                 pointer++;
                 tokenized.add(div());
             }
-            else if (arrayInput[pointer] == 's'){
+             if (arrayInput[pointer] == 's'){
                 pointer++;
                 tokenized.add(sin());
             }
-            else if (arrayInput[pointer] == 'c'){
+             if (arrayInput[pointer] == 'c'){
                 pointer++;
                 tokenized.add(cos());
             }
-            else if (arrayInput[pointer] == 't'){
+             if (arrayInput[pointer] == 't'){
                 pointer++;
                 tokenized.add(tan());
             }
-            else if (arrayInput[pointer] == 'l'){
+             if (arrayInput[pointer] == 'l'){
                 pointer++;
                 tokenized.add(log());
             }
-            else{
-                System.out.println("kya yaar!");
-                System.exit(0);
-            }
+//            else{
+//                System.out.println("kya yaar!");
+//                System.exit(0);
+//            }
 
         }
     }
