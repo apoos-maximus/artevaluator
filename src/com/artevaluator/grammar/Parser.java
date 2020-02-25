@@ -12,7 +12,6 @@ public class Parser {
         return tokenStream.get(tokPointer);
     }
 
-
     Boolean factor(){
         Boolean result = true;
         if(curTok.tokCheckVal("(")){
@@ -39,6 +38,8 @@ public class Parser {
                 else
                     curTok = nextToken();
             }
+            else
+                result = false;
 
         }
         else if(curTok.tokCheckVal("cos")){
@@ -54,6 +55,8 @@ public class Parser {
                 else
                     curTok = nextToken();
             }
+            else
+                result = false;
 
         }
         else if(curTok.tokCheckVal("tan")){
@@ -69,6 +72,8 @@ public class Parser {
                 else
                     curTok = nextToken();
             }
+            else
+                result = false;
         }
         else if(curTok.tokCheckVal("log")){
             curTok = nextToken();
@@ -83,6 +88,8 @@ public class Parser {
                 else
                     curTok = nextToken();
             }
+            else
+                result = false;
 
         }
 

@@ -310,17 +310,9 @@ public class Lexer {
 
 
 
-
-
     public  void   tokenize() {
         while (arrayInput[pointer] != '#'){
-//            System.out.println(arrayInput[pointer]);
-            if ( (arrayInput[pointer] == '-') || (tr.getType(arrayInput[pointer]).equals("digit")) ) {
-                pointer++;
-                tokenized.add(operand());
-            }
-//            System.out.println(arrayInput[pointer]);
-            else if( arrayInput[pointer] == '(' ){
+            if( arrayInput[pointer] == '(' ){
                 pointer++;
                 tokenized.add(leftParen());
             }
@@ -336,6 +328,10 @@ public class Lexer {
             else if( arrayInput[pointer] == '-' ){
                 pointer++;
                 tokenized.add(minus());
+            }
+            else if ( (arrayInput[pointer] == '-') || (tr.getType(arrayInput[pointer]).equals("digit")) ) {
+                pointer++;
+                tokenized.add(operand());
             }
             else if( arrayInput[pointer] == '*' ){
                 pointer++;
@@ -363,7 +359,6 @@ public class Lexer {
             }
             else
                 System.out.println("kya yaar!");
-
         }
     }
 
