@@ -6,188 +6,156 @@ public class Parser {
     ArrayList<Token> tokenStream;
     int tokPointer;
     Token curTok;
-    Node AST;
 
-    Token nextToken(){
+    Token nextToken() {
         tokPointer++;
         return tokenStream.get(tokPointer);
     }
 
-    Boolean factor(){
+    Boolean factor() {
         Boolean result = true;
-        if(curTok.tokCheckVal("(")){
+        if (curTok.tokCheckVal("(")) {
             curTok = nextToken();
-            if(expr() == false)
+            if (expr() == false)
                 result = false;
-            else if(curTok.tokCheckVal(")") == false){
+            else if (curTok.tokCheckVal(")") == false) {
                 System.out.println(") expected -- syntax error");
                 result = false;
-            }
-            else
+            } else
                 curTok = nextToken();
-        }
-        else if(curTok.tokCheckVal("sin")){
+        } else if (curTok.tokCheckVal("sin")) {
             curTok = nextToken();
-            if(curTok.tokCheckVal("(")){
+            if (curTok.tokCheckVal("(")) {
                 curTok = nextToken();
-                if(expr() == false)
+                if (expr() == false)
                     result = false;
-                else if(curTok.tokCheckVal(")") == false){
+                else if (curTok.tokCheckVal(")") == false) {
                     System.out.println(") expected -- syntax error");
                     result = false;
-                }
-                else
+                } else
                     curTok = nextToken();
-            }
-            else
+            } else
                 result = false;
 
-        }
-        else if(curTok.tokCheckVal("cos")){
+        } else if (curTok.tokCheckVal("cos")) {
             curTok = nextToken();
-            if(curTok.tokCheckVal("(")){
+            if (curTok.tokCheckVal("(")) {
                 curTok = nextToken();
-                if(expr() == false)
+                if (expr() == false)
                     result = false;
-                else if(curTok.tokCheckVal(")") == false){
+                else if (curTok.tokCheckVal(")") == false) {
                     System.out.println(") expected -- syntax error");
                     result = false;
-                }
-                else
+                } else
                     curTok = nextToken();
-            }
-            else
+            } else
                 result = false;
 
-        }
-        else if(curTok.tokCheckVal("tan")){
+        } else if (curTok.tokCheckVal("tan")) {
             curTok = nextToken();
-            if(curTok.tokCheckVal("(")){
+            if (curTok.tokCheckVal("(")) {
                 curTok = nextToken();
-                if(expr() == false)
+                if (expr() == false)
                     result = false;
-                else if(curTok.tokCheckVal(")") == false){
+                else if (curTok.tokCheckVal(")") == false) {
                     System.out.println(") expected -- syntax error");
                     result = false;
-                }
-                else
+                } else
                     curTok = nextToken();
-            }
-            else
+            } else
                 result = false;
-        }
-        else if(curTok.tokCheckVal("log")){
+        } else if (curTok.tokCheckVal("log")) {
             curTok = nextToken();
-            if(curTok.tokCheckVal("(")){
+            if (curTok.tokCheckVal("(")) {
                 curTok = nextToken();
-                if(expr() == false)
+                if (expr() == false)
                     result = false;
-                else if(curTok.tokCheckVal(")") == false){
+                else if (curTok.tokCheckVal(")") == false) {
                     System.out.println(") expected -- syntax error");
                     result = false;
-                }
-                else
+                } else
                     curTok = nextToken();
-            }
-            else
+            } else
                 result = false;
 
-        }
-
-        else if (curTok.tokCheckType("operand")){
+        } else if (curTok.tokCheckType("operand")) {
             curTok = nextToken();
-        }
-        else {
+        } else {
             System.out.println("Syntax Error !");
             result = false;
         }
         return result;
     }
 
-    Boolean tprime(){
+    Boolean tprime() {
         Boolean result = true;
-        if(curTok.tokCheckVal("*")){
+        if (curTok.tokCheckVal("*")) {
             curTok = nextToken();
             if (factor() == false)
                 result = false;
             else if (tprime() == false)
                 result = false;
-        }
-        else if(curTok.tokCheckVal("/")){
+        } else if (curTok.tokCheckVal("/")) {
             curTok = nextToken();
             if (factor() == false)
                 result = false;
             else if (tprime() == false)
                 result = false;
-        }
-        else
+        } else
             result = true;
         return result;
     }
 
-    Boolean term(){
+    Boolean term() {
         Boolean result = true;
-        if(factor() == false)
+        if (factor() == false)
             result = false;
         else if (tprime() == false)
             result = false;
         return result;
     }
 
-    Boolean eprime(){
+    Boolean eprime() {
         Boolean result = true;
-        if(curTok.tokCheckVal("+")){
-            Node nd = new Node(new Token("operand","+"));
+        if (curTok.tokCheckVal("+")) {
             curTok = nextToken();
-            if(term() == false)
+            if (term() == false)
                 result = false;
-            else if(eprime() == false)
+            else if (eprime() == false)
                 result = false;
-        }
-        else if(curTok.tokCheckVal("-")){
+        } else if (curTok.tokCheckVal("-")) {
             curTok = nextToken();
-            if(term() == false)
+            if (term() == false)
                 result = false;
-            else if(eprime() == false)
+            else if (eprime() == false)
                 result = false;
-        }
-        else
+        } else
             result = true;
 
-        return  result;
+        return result;
     }
 
-    Boolean expr(){
+    Boolean expr() {
         Boolean result = true;
         if (term() == false)
             result = false;
         else if (eprime() == false)
             result = false;
-        return  result;
+        return result;
     }
 
-    public Boolean isValid(){
+    public Boolean isValid() {
         curTok = nextToken();
-        if(expr() != false)
-                return true;
+        if (expr() != false)
+            return true;
         else
-                return false;
+            return false;
     }
 
-    public Parser(ArrayList<Token> a){
+    public Parser(ArrayList<Token> a) {
         tokenStream = a;
         tokPointer = -1;
-        curTok = new Token("LOL","LOL");
-        AST = new Node(new Token("root","answer comes here"));
-    }
-
-    public void buildAST(){
-        tokPointer = 0;
-        curTok = tokenStream.get(tokPointer);
-
-
-    }
-    public Node getAST(){
-        return AST;
+        curTok = new Token("LOL", "LOL");
     }
 }
+
