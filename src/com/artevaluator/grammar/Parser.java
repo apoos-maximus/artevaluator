@@ -6,6 +6,7 @@ public class Parser {
     ArrayList<Token> tokenStream;
     int tokPointer;
     Token curTok;
+    Node AST;
 
     Token nextToken(){
         tokPointer++;
@@ -93,8 +94,9 @@ public class Parser {
 
         }
 
-        else if (curTok.tokCheckType("operand"))
+        else if (curTok.tokCheckType("operand")){
             curTok = nextToken();
+        }
         else {
             System.out.println("Syntax Error !");
             result = false;
@@ -135,6 +137,7 @@ public class Parser {
     Boolean eprime(){
         Boolean result = true;
         if(curTok.tokCheckVal("+")){
+            Node nd = new Node(new Token("operand","+"));
             curTok = nextToken();
             if(term() == false)
                 result = false;
@@ -175,6 +178,16 @@ public class Parser {
         tokenStream = a;
         tokPointer = -1;
         curTok = new Token("LOL","LOL");
+        AST = new Node(new Token("root","answer comes here"));
     }
-    
+
+    public void buildAST(){
+        tokPointer = 0;
+        curTok = tokenStream.get(tokPointer);
+
+
+    }
+    public Node getAST(){
+        return AST;
+    }
 }

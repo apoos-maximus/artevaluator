@@ -64,6 +64,10 @@ public class Node {
             isLeaf = false;
             childCount = 1;
         }
+        else if (a.type.equals("root")){
+            isLeaf = false;
+            childCount = 1;
+        }
         else
             System.out.println("Tree Error  !!");
         ch = new HashMap<>();
