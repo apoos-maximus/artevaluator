@@ -357,8 +357,11 @@ public class Lexer {
                 pointer++;
                 tokenized.add(log());
             }
-            else
+            else{
                 System.out.println("kya yaar!");
+                System.exit(0);
+            }
+
         }
     }
 
