@@ -11,12 +11,31 @@ public class Parser {
         tokPointer++;
         return tokenStream.get(tokPointer);
     }
+
+    NodePack eprime(){
+        NodePack result = new NodePack();
+        NodePack a = new NodePack();
+        NodePack b = new NodePack();
+        NodePack c = new NodePack();
+        result.result = true;
+        if (curTok.tokCheckVal("+")) {
+            result.aNode = new Node(curTok);
+            curTok = nextToken();
+            a = term();
+            b = eprime();
+            if ( ( a.result != false ) && (b.result != false) ){
+                b.aNode.addChild("left",a.aNode);
+                result.aNode.addChild("right",b.aNode);
+            }
+
+        }
+    }
+
     NodePack term(){
         NodePack result = new NodePack();
         NodePack a = new NodePack();
         NodePack b = new NodePack();
         NodePack c = new NodePack();
-
         result.result = true;
         a = factor();
         b = tprime();
@@ -29,6 +48,7 @@ public class Parser {
         }
         return result;
     }
+
     NodePack tprime(){
         NodePack result = new NodePack();
         NodePack a = new NodePack();
