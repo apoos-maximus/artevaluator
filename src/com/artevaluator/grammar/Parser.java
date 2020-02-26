@@ -12,6 +12,49 @@ public class Parser {
         return tokenStream.get(tokPointer);
     }
 
+    NodePack tprime(){
+        NodePack result = new NodePack();
+        NodePack a = new NodePack();
+        NodePack b = new NodePack();
+        NodePack c = new NodePack();
+        result.result = true;
+        if (curTok.tokCheckVal("*")){
+            result.aNode = new Node(curTok);
+            curTok = nextToken();
+            a = factor();
+            b = tprime();
+            if ( (a.result != false) && (b.result != false) ){
+                b.aNode.addChild("left",a.aNode);
+                result.aNode.addChild("right",b.aNode);
+            }
+            else if ((a.result != false) && (b.result == false)){
+                result.aNode.addChild("right",a.aNode);
+            }
+            else{
+                result.result = false;
+            }
+        }
+        else if(curTok.tokCheckVal("/")){
+            result.aNode = new Node(curTok);
+            curTok = nextToken();
+            a = factor();
+            b = tprime();
+            if ( (a.result != false) && (b.result != false) ){
+                b.aNode.addChild("left",a.aNode);
+                result.aNode.addChild("right",b.aNode);
+            }
+            else if ((a.result != false) && (b.result == false)){
+                result.aNode.addChild("right",a.aNode);
+            }
+            else {
+                result.result = false;
+            }
+        }
+        else result.result = true;
+
+        return result;
+    }
+
     NodePack factor(){
         NodePack result = new NodePack();
         NodePack a = new NodePack();
@@ -42,6 +85,7 @@ public class Parser {
         }
     return result;
     }
+
     public Parser(ArrayList<Token> a) {
         tokenStream = a;
         tokPointer = -1;
