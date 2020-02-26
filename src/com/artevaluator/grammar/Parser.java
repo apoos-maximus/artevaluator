@@ -8,9 +8,6 @@ public class Parser {
     Node AST;
     Token curTok;
 
-    public Node getAST() {
-        return AST;
-    }
 
     Token nextToken() {
         tokPointer++;
@@ -159,12 +156,35 @@ public class Parser {
             if((a = expr()).result == false){
                 result.result = false;
             }
-            else if(curTok.tokCheckVal(")") == false) result.result = false;
+            else if(curTok.tokCheckVal(")") == false){
+                result.result = false;
+                System.out.println("Syntax error (expr): ')' expected ");
+            }
 
             else curTok = nextToken();
             if(result.result){
                 result.aNode = a.aNode;
             }
+        }
+        else if(curTok.tokCheckType("trigonometric") || curTok.tokCheckType("logarithmic")){
+            result.aNode = new Node(curTok);
+            curTok = nextToken();
+            if(curTok.tokCheckVal("(")){
+                curTok = nextToken();
+                if((a = expr()).result == false) result.result = false;
+                else if(curTok.tokCheckVal(")") == false) {
+                    result.result = false;
+                    System.out.println("Syntax error f(x): ')' expected ");
+                }
+                else curTok = nextToken();
+                if(result.result){
+                    result.aNode.addChild("only",a.aNode);
+                }
+            } else {
+                System.out.println("syntax error");
+                result.result = false;
+            }
+
         }
         else if(curTok.tokCheckType("operand")){
             result.aNode = new Node(curTok);
@@ -198,8 +218,10 @@ public class Parser {
         curTok = new Token("LOL", "LOL");
     }
 
-
-    public void printExp(){
+    public Node getAST() {
+        return AST;
+    }
+    public void printAST(){
         AST.printTree();
     }
 }
