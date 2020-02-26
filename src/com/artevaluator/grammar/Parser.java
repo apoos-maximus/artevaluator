@@ -63,6 +63,7 @@ public class Parser {
         else if (curTok.tokCheckVal("-")) {
             result.aNode = new Node(curTok);
             curTok = nextToken();
+
             if ((a = term()).result == false) result.result = false;
             else if ((b = eprime()).result == false) result.result = false;
 
@@ -74,7 +75,6 @@ public class Parser {
                     result.aNode.addChild("right",b.aNode);
                 }
             }
-
         }
         else {
             result.result = true;
@@ -152,26 +152,26 @@ public class Parser {
         NodePack b = new NodePack();
         NodePack c = new NodePack();
         result.result = true;
-        if ( curTok.tokCheckVal("(") ){
+
+        if(curTok.tokCheckVal("(")){
             curTok = nextToken();
-            a = expr();
-            if(a.result == false){
+
+            if((a = expr()).result == false){
                 result.result = false;
             }
-            else if (curTok.tokCheckVal(")")==false){
-                System.out.println("Syntax Error[expr()] -- missing ')' ");
-                result.result = false;
-            }
-            else{
-                curTok = nextToken();
+            else if(curTok.tokCheckVal(")") == false) result.result = false;
+
+            else curTok = nextToken();
+            if(result.result){
+                result.aNode = a.aNode;
             }
         }
-        else if (curTok.tokCheckType("operand")){
+        else if(curTok.tokCheckType("operand")){
             result.aNode = new Node(curTok);
             curTok = nextToken();
         }
-        else{
-            System.out.println("Syntax Error.. !");
+        else {
+            System.out.println("Syntax Error !");
             result.result = false;
         }
     return result;
