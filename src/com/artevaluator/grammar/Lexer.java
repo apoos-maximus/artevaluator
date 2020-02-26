@@ -6,6 +6,7 @@ public class Lexer {
     char[] arrayInput;
     ArrayList<Token> tokenized;
     Terminals tr;
+    Set<Character> at;
 
     int pointer;
 
@@ -312,68 +313,73 @@ public class Lexer {
 
     public  void   tokenize() {
         while (arrayInput[pointer] != '#'){
-            if ( (tr.getType(arrayInput[pointer]).equals("digit")) ) { //should be checked before solely minus
-                pointer++;
-                tokenized.add(operand());
+            if (at.contains(arrayInput[pointer]) || (tr.getType(arrayInput[pointer]).equals("digit")) ){
+
+                if ( (tr.getType(arrayInput[pointer]).equals("digit")) ) { //should be checked before solely minus
+                    pointer++;
+                    tokenized.add(operand());
+                }
+                if( arrayInput[pointer] == '(' ){
+                    pointer++;
+                    tokenized.add(leftParen());
+                }
+
+                if( arrayInput[pointer] == ')' ){
+                    pointer++;
+                    tokenized.add(rightParen());
+                }
+                if( arrayInput[pointer] == '+' ){
+                    pointer++;
+                    tokenized.add(plus());
+
+                    if ( (arrayInput[pointer] == '-') || (tr.getType(arrayInput[pointer]).equals("digit")) ) { //should be checked before solely minus
+                        pointer++;
+                        tokenized.add(operand());
+                    }
+                }
+
+                if( arrayInput[pointer] == '-' ){                                      // should be checked after operand condition
+                    pointer++;
+                    tokenized.add(minus());
+
+                    if ( (arrayInput[pointer] == '-') || (tr.getType(arrayInput[pointer]).equals("digit")) ) { //should be checked before solely minus
+                        pointer++;
+                        tokenized.add(operand());
+                    }
+                }
+
+
+                if( arrayInput[pointer] == '*' ){
+                    pointer++;
+                    tokenized.add(mul());
+                }
+                if( arrayInput[pointer] == '/' ){
+                    pointer++;
+                    tokenized.add(div());
+                }
+                if (arrayInput[pointer] == 's'){
+                    pointer++;
+                    tokenized.add(sin());
+                }
+                if (arrayInput[pointer] == 'c'){
+                    pointer++;
+                    tokenized.add(cos());
+                }
+                if (arrayInput[pointer] == 't'){
+                    pointer++;
+                    tokenized.add(tan());
+                }
+                if (arrayInput[pointer] == 'l'){
+                    pointer++;
+                    tokenized.add(log());
+                }
             }
-            if( arrayInput[pointer] == '(' ){
-                pointer++;
-                tokenized.add(leftParen());
+            else
+            {
+                System.out.println("Wrong literal !");
+                System.exit(0);
             }
 
-             if( arrayInput[pointer] == ')' ){
-                pointer++;
-                tokenized.add(rightParen());
-            }
-             if( arrayInput[pointer] == '+' ){
-                pointer++;
-                tokenized.add(plus());
-
-                 if ( (arrayInput[pointer] == '-') || (tr.getType(arrayInput[pointer]).equals("digit")) ) { //should be checked before solely minus
-                     pointer++;
-                     tokenized.add(operand());
-                 }
-            }
-
-             if( arrayInput[pointer] == '-' ){                                      // should be checked after operand condition
-                pointer++;
-                tokenized.add(minus());
-
-                 if ( (arrayInput[pointer] == '-') || (tr.getType(arrayInput[pointer]).equals("digit")) ) { //should be checked before solely minus
-                     pointer++;
-                     tokenized.add(operand());
-                 }
-            }
-
-
-             if( arrayInput[pointer] == '*' ){
-                pointer++;
-                tokenized.add(mul());
-            }
-             if( arrayInput[pointer] == '/' ){
-                pointer++;
-                tokenized.add(div());
-            }
-             if (arrayInput[pointer] == 's'){
-                pointer++;
-                tokenized.add(sin());
-            }
-             if (arrayInput[pointer] == 'c'){
-                pointer++;
-                tokenized.add(cos());
-            }
-             if (arrayInput[pointer] == 't'){
-                pointer++;
-                tokenized.add(tan());
-            }
-             if (arrayInput[pointer] == 'l'){
-                pointer++;
-                tokenized.add(log());
-            }
-//            else{
-//                System.out.println("kya yaar!");
-//                System.exit(0);
-//            }
 
         }
     }
@@ -384,6 +390,7 @@ public class Lexer {
         tokenized = new ArrayList<Token>();
         tr = new Terminals();
         pointer = 0;
+        at = new HashSet<>(Arrays.asList('+','-','*','/','(',')','s','c','t','l'));
     }
 
     public ArrayList<Token> getTokenized() {
