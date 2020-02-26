@@ -162,6 +162,19 @@ public class Parser {
     return result;
     }
 
+    public Boolean isValid(){
+        curTok = nextToken();
+        NodePack am = expr();
+        if(am.result == false){
+            System.out.println("parse failed");
+            return  false;
+        }
+        else {
+            System.out.println("parse success");
+            return true;
+        }
+    }
+
     public Parser(ArrayList<Token> a) {
         tokenStream = a;
         tokPointer = -1;

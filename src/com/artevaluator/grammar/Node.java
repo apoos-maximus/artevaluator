@@ -48,28 +48,34 @@ public class Node {
     }
     public Node(Token a){
         data = a;
-        if(a.type.equals("operand")){
+        if(a.tokCheckType("operand")){
             isLeaf = true;
             childCount = 0;
         }
-        else if(a.type.equals("operator")){
+        else if(a.tokCheckType("operator")){
             isLeaf = false;
             childCount = 2;
         }
-        else if(a.type.equals("trigonometric")){
+        else if(a.tokCheckType("trigonometric")){
             isLeaf = false;
             childCount = 1;
         }
-        else if(a.type.equals("logarithmic")){
+        else if(a.tokCheckType("logarithmic")){
             isLeaf = false;
             childCount = 1;
         }
-        else if (a.type.equals("root")){
+        else if (a.tokCheckType("root")){
             isLeaf = false;
             childCount = 1;
         }
-        else
+        else if(a.tokCheckType("lol")){
+            isLeaf = false;
+            childCount = -1;
+        }
+        else{
             System.out.println("Tree Error  !!");
+        }
+
         ch = new HashMap<>();
     }
 
