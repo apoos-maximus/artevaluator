@@ -14,6 +14,7 @@ public class Parser {
 
 
 
+
     public Parser(ArrayList<Token> a) {
         tokenStream = a;
         tokPointer = -1;
