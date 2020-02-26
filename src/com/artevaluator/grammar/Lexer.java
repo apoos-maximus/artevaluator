@@ -325,6 +325,10 @@ public class Lexer {
                 pointer++;
                 tokenized.add(plus());
             }
+            if ( (arrayInput[pointer] == '-') || (tr.getType(arrayInput[pointer]).equals("digit")) ) { //should be checked before solely minus
+                pointer++;
+                tokenized.add(operand());
+            }
              if( arrayInput[pointer] == '-' ){                                      // should be checked after operand condition
                 pointer++;
                 tokenized.add(minus());
