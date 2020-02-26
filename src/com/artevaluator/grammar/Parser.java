@@ -11,7 +11,24 @@ public class Parser {
         tokPointer++;
         return tokenStream.get(tokPointer);
     }
+    NodePack term(){
+        NodePack result = new NodePack();
+        NodePack a = new NodePack();
+        NodePack b = new NodePack();
+        NodePack c = new NodePack();
 
+        result.result = true;
+        a = factor();
+        b = tprime();
+
+        if ( (a.result != false) && (b.result != false) ){
+            b.aNode.addChild("left",a.aNode);
+            result.aNode = b.aNode;
+        } else {
+            result.result = false;
+        }
+        return result;
+    }
     NodePack tprime(){
         NodePack result = new NodePack();
         NodePack a = new NodePack();
