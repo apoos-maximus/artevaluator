@@ -48,6 +48,9 @@ public class Node {
         }
         return new Node(new Token("lol","lol"));
     }
+    public Token getData(){
+        return data;
+    }
     public Node(Token a){
         data = a;
         if(a.tokCheckType("operand")){
@@ -79,6 +82,21 @@ public class Node {
         }
 
         ch = new HashMap<>();
+    }
+
+    public void printTree(){
+        if (childCount == 2){
+         if(ch.containsKey("left")) ch.get("left").printTree();
+         System.out.println(data.tokToString());
+         if(ch.containsKey("right")) ch.get("right").printTree();
+        }
+        if (childCount == 1){
+            if(ch.containsKey("only")) ch.get("only").printTree();
+            System.out.println(data.tokToString());
+        }
+        if (childCount == 0){
+            System.out.println(data.tokToString());
+        }
     }
 
 }

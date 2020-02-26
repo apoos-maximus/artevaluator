@@ -24,7 +24,7 @@ public class Main {
 
         Parser parsr = new Parser(a);
         System.out.println(parsr.isValid());
-
-//        Node nd = new Node(new Token("logarithmic","lol"));
+        System.out.println(parsr.getAST());
+        parsr.printExp();
     }
 }

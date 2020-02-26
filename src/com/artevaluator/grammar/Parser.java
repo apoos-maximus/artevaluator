@@ -8,6 +8,10 @@ public class Parser {
     Node AST;
     Token curTok;
 
+    public Node getAST() {
+        return AST;
+    }
+
     Token nextToken() {
         tokPointer++;
         return tokenStream.get(tokPointer);
@@ -154,7 +158,7 @@ public class Parser {
             if(a.result == false){
                 result.result = false;
             }
-            else if (curTok.tokCheckVal(")")){
+            else if (curTok.tokCheckVal(")")==false){
                 System.out.println("Syntax Error[expr()] -- missing ')' ");
                 result.result = false;
             }
@@ -192,6 +196,11 @@ public class Parser {
         tokPointer = -1;
         AST = new Node(new Token("root","root"));
         curTok = new Token("LOL", "LOL");
+    }
+
+
+    public void printExp(){
+        AST.printTree();
     }
 }
 
