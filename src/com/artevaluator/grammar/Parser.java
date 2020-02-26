@@ -19,7 +19,13 @@ public class Parser {
         NodePack c = new NodePack();
         result.result = true;
 
+        if((a = term()).result == false) result.result = false;
+
+        else if((b = eprime()).result == false) result.result = false;
+
+        return result;
     }
+
     NodePack eprime(){
         NodePack result = new NodePack();
         NodePack a = new NodePack();
