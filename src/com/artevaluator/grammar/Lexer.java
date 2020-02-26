@@ -312,6 +312,10 @@ public class Lexer {
 
     public  void   tokenize() {
         while (arrayInput[pointer] != '#'){
+            if ( (tr.getType(arrayInput[pointer]).equals("digit")) ) { //should be checked before solely minus
+                pointer++;
+                tokenized.add(operand());
+            }
             if( arrayInput[pointer] == '(' ){
                 pointer++;
                 tokenized.add(leftParen());
@@ -324,19 +328,23 @@ public class Lexer {
              if( arrayInput[pointer] == '+' ){
                 pointer++;
                 tokenized.add(plus());
+
+                 if ( (arrayInput[pointer] == '-') || (tr.getType(arrayInput[pointer]).equals("digit")) ) { //should be checked before solely minus
+                     pointer++;
+                     tokenized.add(operand());
+                 }
             }
-            if ( (arrayInput[pointer] == '-') || (tr.getType(arrayInput[pointer]).equals("digit")) ) { //should be checked before solely minus
-                pointer++;
-                tokenized.add(operand());
-            }
+
              if( arrayInput[pointer] == '-' ){                                      // should be checked after operand condition
                 pointer++;
                 tokenized.add(minus());
+
+                 if ( (arrayInput[pointer] == '-') || (tr.getType(arrayInput[pointer]).equals("digit")) ) { //should be checked before solely minus
+                     pointer++;
+                     tokenized.add(operand());
+                 }
             }
-             if ( (arrayInput[pointer] == '-') || (tr.getType(arrayInput[pointer]).equals("digit")) ) { //should be checked before solely minus
-                pointer++;
-                tokenized.add(operand());
-            }
+
 
              if( arrayInput[pointer] == '*' ){
                 pointer++;
