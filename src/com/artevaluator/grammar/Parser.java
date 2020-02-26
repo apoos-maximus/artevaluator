@@ -1,5 +1,4 @@
 package com.artevaluator.grammar;
-
 import java.util.ArrayList;
 
 public class Parser {
@@ -13,6 +12,13 @@ public class Parser {
     Token nextToken() {
         tokPointer++;
         return tokenStream.get(tokPointer);
+    }
+
+    NodePack factor(){
+        NodePack result = new NodePack();
+        if(curTok.tokCheckType('(')){
+            curTok = nextToken();
+        }
     }
 
 
