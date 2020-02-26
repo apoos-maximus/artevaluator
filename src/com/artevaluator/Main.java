@@ -3,6 +3,8 @@ import com.artevaluator.grammar.Lexer;
 import  com.artevaluator.grammar.Token;
 import  com.artevaluator.grammar.Parser;
 
+import com.artevaluator.grammar.Node;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -22,5 +24,7 @@ public class Main {
 
         Parser parsr = new Parser(a);
         System.out.println(parsr.isValid());
+
+//        Node nd = new Node(new Token("logarithmic","lol"));
     }
 }

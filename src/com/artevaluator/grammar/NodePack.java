@@ -6,6 +6,6 @@ public class NodePack {
 
     public NodePack(){
         result = false;
-        aNode = new Node (new Token("LOL","LOL"));
+        aNode = new Node (new Token("lol","lol"));
     }
 }

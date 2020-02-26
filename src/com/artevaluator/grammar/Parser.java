@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Parser {
     ArrayList<Token> tokenStream;
     int tokPointer;
+    Node AST;
     Token curTok;
 
     Token nextToken() {
@@ -20,9 +21,16 @@ public class Parser {
         result.result = true;
 
         if((a = term()).result == false) result.result = false;
-
         else if((b = eprime()).result == false) result.result = false;
 
+        if(result.result){
+            if(b.aNode.checkType("lol")){
+                result.aNode = a.aNode;
+            } else {
+                result.aNode = b.aNode;
+                result.aNode.addChild("left",a.aNode);
+            }
+        }
         return result;
     }
 
@@ -35,32 +43,32 @@ public class Parser {
         if (curTok.tokCheckVal("+")) {
             result.aNode = new Node(curTok);
             curTok = nextToken();
-            a = term();
-            b = eprime();
-            if ( ( a.result != false ) && (b.result != false) ){
-                b.aNode.addChild("left",a.aNode);
-                result.aNode.addChild("right",b.aNode);
-            }
-            else if ( (a.result != false) && (b.result == false)) {
-                result.aNode.addChild("right",a.aNode);
-            }
-            else {
-                result.result = false;
-            }
 
+            if ((a = term()).result == false) result.result = false;
+            else if ((b = eprime()).result == false) result.result = false;
+
+            if(result.result){
+                if(b.aNode.checkType("lol")){
+                    result.aNode.addChild("right",a.aNode);
+                } else {
+                    b.aNode.addChild("left",a.aNode);
+                    result.aNode.addChild("right",b.aNode);
+                }
+            }
         }
         else if (curTok.tokCheckVal("-")) {
             result.aNode = new Node(curTok);
             curTok = nextToken();
-            a = term();
-            b = eprime();
-            if ((a.result != false) && (b.result != false)) {
-                b.aNode.addChild("left", a.aNode);
-                result.aNode.addChild("right", b.aNode);
-            } else if ((a.result != false) && (b.result == false)) {
-                result.aNode.addChild("right", a.aNode);
-            } else {
-                result.result = false;
+            if ((a = term()).result == false) result.result = false;
+            else if ((b = eprime()).result == false) result.result = false;
+
+            if(result.result){
+                if(b.aNode.checkType("lol")){
+                    result.aNode.addChild("right",a.aNode);
+                } else {
+                    b.aNode.addChild("left",a.aNode);
+                    result.aNode.addChild("right",b.aNode);
+                }
             }
 
         }
@@ -76,16 +84,19 @@ public class Parser {
         NodePack b = new NodePack();
         NodePack c = new NodePack();
         result.result = true;
-        a = factor();
-        b = tprime();
 
-        if ( (a.result != false) && (b.result != false) ){
-            b.aNode.addChild("left",a.aNode);
-            result.aNode = b.aNode;
-        } else {
-            result.result = false;
+        if((a = factor()).result == false) result.result = false;
+        else if((b = tprime()).result == false) result.result = false;
+
+        if(result.result){
+            if(b.aNode.checkType("lol")){
+                result.aNode = a.aNode;
+            } else {
+                result.aNode = b.aNode;
+                result.aNode.addChild("left",a.aNode);
+            }
         }
-        return result;
+        return  result;
     }
 
     NodePack tprime(){
@@ -97,33 +108,33 @@ public class Parser {
         if (curTok.tokCheckVal("*")){
             result.aNode = new Node(curTok);
             curTok = nextToken();
-            a = factor();
-            b = tprime();
-            if ( (a.result != false) && (b.result != false) ){
-                b.aNode.addChild("left",a.aNode);
-                result.aNode.addChild("right",b.aNode);
-            }
-            else if ((a.result != false) && (b.result == false)){
-                result.aNode.addChild("right",a.aNode);
-            }
-            else{
-                result.result = false;
+
+
+            if((a = factor()).result == false ) result.result = false;
+            else if((b = tprime()).result == false ) result.result = false;
+
+            if(result.result) {
+                if(b.aNode.checkType("lol")){
+                    result.aNode.addChild("right",a.aNode);
+                } else {
+                    b.aNode.addChild("left",a.aNode);
+                    result.aNode.addChild("right",b.aNode);
+                }
             }
         }
         else if(curTok.tokCheckVal("/")){
             result.aNode = new Node(curTok);
             curTok = nextToken();
-            a = factor();
-            b = tprime();
-            if ( (a.result != false) && (b.result != false) ){
-                b.aNode.addChild("left",a.aNode);
-                result.aNode.addChild("right",b.aNode);
-            }
-            else if ((a.result != false) && (b.result == false)){
-                result.aNode.addChild("right",a.aNode);
-            }
-            else {
-                result.result = false;
+            if((a = factor()).result == false ) result.result = false;
+            else if((b = tprime()).result == false ) result.result = false;
+
+            if(result.result) {
+                if(b.aNode.checkType("lol")){
+                    result.aNode.addChild("right",a.aNode);
+                } else {
+                    b.aNode.addChild("left",a.aNode);
+                    result.aNode.addChild("right",b.aNode);
+                }
             }
         }
         else result.result = true;
@@ -144,7 +155,7 @@ public class Parser {
                 result.result = false;
             }
             else if (curTok.tokCheckVal(")")){
-                System.out.println("Syntsx Error[expr()] -- missing ')' ");
+                System.out.println("Syntax Error[expr()] -- missing ')' ");
                 result.result = false;
             }
             else{
@@ -170,6 +181,7 @@ public class Parser {
             return  false;
         }
         else {
+            AST.addChild("only",am.aNode);
             System.out.println("parse success");
             return true;
         }
@@ -178,6 +190,7 @@ public class Parser {
     public Parser(ArrayList<Token> a) {
         tokenStream = a;
         tokPointer = -1;
+        AST = new Node(new Token("root","root"));
         curTok = new Token("LOL", "LOL");
     }
 }

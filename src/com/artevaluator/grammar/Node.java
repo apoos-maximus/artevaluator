@@ -9,7 +9,9 @@ public class Node {
     int childCount;
     Map<String,Node> ch;
 
-
+    public Boolean checkType(String a){
+        return  data.tokCheckType(a);
+    }
     public Boolean addChild(String a,Node b){
 
         if(childCount > 0) {
