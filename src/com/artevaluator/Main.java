@@ -21,6 +21,6 @@ public class Main {
         }
 
         Parser parsr = new Parser(a);
-        System.out.println(parsr.isValid());
+//        System.out.println(parsr.isValid());
     }
 }

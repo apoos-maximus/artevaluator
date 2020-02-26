@@ -14,16 +14,6 @@ public class Parser {
         return tokenStream.get(tokPointer);
     }
 
-    NodePack factor(){
-        NodePack result = new NodePack();
-        if(curTok.tokCheckType('(')){
-            curTok = nextToken();
-        }
-    }
-
-
-
-
     public Parser(ArrayList<Token> a) {
         tokenStream = a;
         tokPointer = -1;
