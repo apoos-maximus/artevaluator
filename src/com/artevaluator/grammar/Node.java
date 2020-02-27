@@ -78,7 +78,7 @@ public class Node {
         if (childCount == 1) {
             Double only = 0.0;
             if (ch.containsKey("only")) only = ch.get("only").eval();
-            return only;
+            return ops.get(data.getVal()).Solve(only);
         }
         if (childCount == 0) {
             return Double.parseDouble(data.getVal());
@@ -127,6 +127,7 @@ public class Node {
         ops.put("cos",new Cosine());
         ops.put("tan",new Tangent());
         ops.put("log",new Logarithm());
+        ops.put("root", new Identity());
     }
 
 }
