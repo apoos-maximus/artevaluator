@@ -2,6 +2,9 @@ package com.artevaluator;
 import com.artevaluator.grammar.Lexer;
 import  com.artevaluator.grammar.Token;
 import  com.artevaluator.grammar.Parser;
+import  com.artevaluator.operator.*;
+
+import com.artevaluator.grammar.Node;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -16,11 +19,19 @@ public class Main {
         lexr.tokenize();
         ArrayList<Token> a = lexr.getTokenized();
         a.add(new Token("EOF","EOF"));
-        for (Token token : a) {
-            System.out.println(token.tokToString() + " ");
-        }
+//        for (Token token : a) {
+//            System.out.println(token.tokToString() + " ");
+//        }
 
         Parser parsr = new Parser(a);
         System.out.println(parsr.isValid());
+//        System.out.println(parsr.getAST());
+//        parsr.printAST();
+
+        Addition add = new Addition();
+        Sine sin = new Sine();
+        System.out.println(parsr.getVal());
+
+
     }
 }

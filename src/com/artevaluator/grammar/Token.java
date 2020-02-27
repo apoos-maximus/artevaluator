@@ -19,6 +19,9 @@ public class Token {
         return "<" + type + "," + value + ">" ;
     }
 
+    public String getVal(){
+        return value;
+    }
     public Boolean tokCheckVal(String a){
         if(value.equals(a))return true;
         else return false;
