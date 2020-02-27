@@ -30,7 +30,7 @@ public class Main {
 
         Addition add = new Addition();
         Sine sin = new Sine();
-        System.out.println(sin.Solve(30));
+        System.out.println(parsr.getVal());
 
 
     }

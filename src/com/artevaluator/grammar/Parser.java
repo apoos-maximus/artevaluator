@@ -224,5 +224,8 @@ public class Parser {
     public void printAST(){
         AST.printTree();
     }
+    public Double getVal(){
+        return AST.eval();
+    }
 }
 

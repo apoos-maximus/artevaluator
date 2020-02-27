@@ -1,6 +1,6 @@
 package com.artevaluator.operator;
 
-public class Multiple extends Operator {
+public class Multiplication extends Operator {
     @Override
     public double Solve(double a, double b) {
         return a*b;
