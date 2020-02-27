@@ -8,6 +8,6 @@ public class Logarithm extends Operator {
 
     @Override
     public double Solve(double a) {
-        return Math.log(a);
+        return Math.log10(a);
     }
 }
