@@ -56,15 +56,15 @@ public class Node {
     public void printTree(){
         if (childCount == 2){
          if(ch.containsKey("left")) ch.get("left").printTree();
-         System.out.println(data.tokToString());
+         System.out.println(data.getVal());
          if(ch.containsKey("right")) ch.get("right").printTree();
         }
         if (childCount == 1){
             if(ch.containsKey("only")) ch.get("only").printTree();
-            System.out.println(data.tokToString());
+            System.out.println(data.getVal());
         }
         if (childCount == 0){
-            System.out.println(data.tokToString());
+            System.out.println(data.getVal());
         }
     }
 

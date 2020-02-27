@@ -19,14 +19,14 @@ public class Main {
         lexr.tokenize();
         ArrayList<Token> a = lexr.getTokenized();
         a.add(new Token("EOF","EOF"));
-        for (Token token : a) {
-            System.out.println(token.tokToString() + " ");
-        }
+//        for (Token token : a) {
+//            System.out.println(token.tokToString() + " ");
+//        }
 
         Parser parsr = new Parser(a);
         System.out.println(parsr.isValid());
-        System.out.println(parsr.getAST());
-        parsr.printAST();
+//        System.out.println(parsr.getAST());
+//        parsr.printAST();
 
         Addition add = new Addition();
         Sine sin = new Sine();
