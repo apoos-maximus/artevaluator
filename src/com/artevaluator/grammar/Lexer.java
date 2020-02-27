@@ -352,10 +352,20 @@ public class Lexer {
                 if( arrayInput[pointer] == '*' ){
                     pointer++;
                     tokenized.add(mul());
+
+                    if ( (arrayInput[pointer] == '-') || (tr.getType(arrayInput[pointer]).equals("digit")) ) { //should be checked before solely minus
+                        pointer++;
+                        tokenized.add(operand());
+                    }
                 }
                 if( arrayInput[pointer] == '/' ){
                     pointer++;
                     tokenized.add(div());
+
+                    if ( (arrayInput[pointer] == '-') || (tr.getType(arrayInput[pointer]).equals("digit")) ) { //should be checked before solely minus
+                        pointer++;
+                        tokenized.add(operand());
+                    }
                 }
                 if (arrayInput[pointer] == 's'){
                     pointer++;
