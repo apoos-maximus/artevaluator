@@ -1,6 +1,5 @@
 package com.artevaluator;
-import com.artevaluator.grammar.Exception.DecimalSyntaxError;
-import com.artevaluator.grammar.Exception.WrongLiteralException;
+import com.artevaluator.grammar.Exception.*;
 import com.artevaluator.grammar.Lexer;
 import  com.artevaluator.grammar.Token;
 import  com.artevaluator.grammar.Parser;
@@ -13,7 +12,7 @@ import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args) throws WrongLiteralException, DecimalSyntaxError {
+    public static void main(String[] args) throws WrongLiteralException, DecimalSyntaxError, EmptyParenthesisError, OperatorRequiredError, UnrecognisedOperationError {
         Scanner sc = new Scanner(System.in);
         String exp = sc.nextLine();
 

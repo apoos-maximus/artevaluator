@@ -1,6 +1,5 @@
 package com.artevaluator.grammar;
-import com.artevaluator.grammar.Exception.DecimalSyntaxError;
-import com.artevaluator.grammar.Exception.WrongLiteralException;
+import com.artevaluator.grammar.Exception.*;
 
 import java.util.*;
 
@@ -58,15 +57,14 @@ public class Lexer {
     enum PlState{
         Pl,accept
     };
-    Token leftParen() {
+    Token leftParen() throws EmptyParenthesisError {
       Token brak = new Token("leftParenthesis","");
       brak.buildToken(arrayInput[pointer-1]);
       PlState lbr = PlState.Pl;
       while(true){
           switch(lbr){
               case Pl:  if(arrayInput[pointer] == ')'){
-                            System.out.println("Error empty parenthesis");
-                            System.exit(0);
+                            throw new EmptyParenthesisError();
                         }
                         else
                             lbr = PlState.accept;
@@ -80,15 +78,14 @@ public class Lexer {
     enum PrState{
         Pr,accept
     };
-    Token rightParen() {
+    Token rightParen() throws OperatorRequiredError {
         Token brak = new Token("rightParenthesis","");
         brak.buildToken(arrayInput[pointer-1]);
         PrState rbr = PrState.Pr;
         while(true){
             switch(rbr){
-                case Pr:  if(arrayInput[pointer] == '('){
-                    System.out.println("Error operator required");
-                    System.exit(0);
+                case Pr:  if( (arrayInput[pointer] == '(') || (tr.getType(arrayInput[pointer]).equals("digit"))){
+                    throw new OperatorRequiredError();
                 }
                 else
                     rbr = PrState.accept;
@@ -166,7 +163,7 @@ public class Lexer {
     enum sinState{
             s1,i,n1,accept
     };
-    Token sin(){
+    Token sin() throws UnrecognisedOperationError {
         Token sine = new Token("trigonometric","");
         sine.buildToken(arrayInput[pointer-1]);
         sinState st = sinState.s1;
@@ -178,8 +175,7 @@ public class Lexer {
                             st = sinState.i;
                          }
                         else {
-                            System.out.println("unexpexted literal at position: " + pointer);
-                            System.exit(0);
+                           throw new UnrecognisedOperationError();
                         }
                         break;
                 case i: if(arrayInput[pointer] == 'n') {
@@ -188,9 +184,8 @@ public class Lexer {
                         st = sinState.n1;
                         }
                         else {
-                            System.out.println("unexpexted literal at position: " + pointer);
-                            System.exit(0);
-                        }
+                            throw new UnrecognisedOperationError();
+                }
                         break;
                 case n1: st = sinState.accept;
                          break;
@@ -203,7 +198,7 @@ public class Lexer {
     enum cosState{
         c,o1,s2,accept
     };
-    Token cos(){
+    Token cos() throws UnrecognisedOperationError {
         Token cosine = new Token("trigonometric","");
         cosine.buildToken(arrayInput[pointer-1]);
         cosState st = cosState.c;
@@ -215,8 +210,7 @@ public class Lexer {
                     st = cosState.o1;
                 }
                 else {
-                    System.out.println("unexpexted literal at position: " + pointer);
-                    System.exit(0);
+                    throw new UnrecognisedOperationError();
                 }
                     break;
                 case o1: if(arrayInput[pointer] == 's') {
@@ -225,8 +219,7 @@ public class Lexer {
                     st = cosState.s2;
                 }
                 else {
-                    System.out.println("unexpexted literal at position: " + pointer);
-                    System.exit(0);
+                    throw new UnrecognisedOperationError();
                 }
                     break;
                 case s2: st = cosState.accept;
@@ -240,7 +233,7 @@ public class Lexer {
     enum tanState{
         t,a,n2,accept
     };
-    Token tan(){
+    Token tan() throws UnrecognisedOperationError {
         Token tangent = new Token("trigonometric","");
         tangent.buildToken(arrayInput[pointer-1]);
         tanState st = tanState.t;
@@ -252,8 +245,7 @@ public class Lexer {
                     st = tanState.a;
                 }
                 else {
-                    System.out.println("unexpexted literal at position: " + pointer);
-                    System.exit(0);
+                    throw new UnrecognisedOperationError();
                 }
                     break;
                 case a: if(arrayInput[pointer] == 'n') {
@@ -262,8 +254,7 @@ public class Lexer {
                     st = tanState.n2;
                 }
                 else {
-                    System.out.println("unexpexted literal at position: " + pointer);
-                    System.exit(0);
+                    throw new UnrecognisedOperationError();
                 }
                     break;
                 case n2: st = tanState.accept;
@@ -277,7 +268,7 @@ public class Lexer {
     enum logState{
         l,o2,g,accept
     };
-    Token log(){
+    Token log() throws UnrecognisedOperationError {
         Token loggo = new Token("logarithmic","");
         loggo.buildToken(arrayInput[pointer-1]);
         logState st = logState.l;
@@ -289,8 +280,7 @@ public class Lexer {
                     st = logState.o2;
                 }
                 else {
-                    System.out.println("unexpexted literal at position: " + pointer);
-                    System.exit(0);
+                    throw new UnrecognisedOperationError();
                 }
                     break;
                 case o2: if(arrayInput[pointer] == 'g') {
@@ -299,8 +289,7 @@ public class Lexer {
                     st = logState.g;
                 }
                 else {
-                    System.out.println("unexpexted literal at position: " + pointer);
-                    System.exit(0);
+                    throw new UnrecognisedOperationError();
                 }
                     break;
                 case g: st = logState.accept;
@@ -313,7 +302,7 @@ public class Lexer {
 
 
 
-    public  void   tokenize() throws WrongLiteralException, DecimalSyntaxError {
+    public  void   tokenize() throws WrongLiteralException, DecimalSyntaxError, EmptyParenthesisError, OperatorRequiredError, UnrecognisedOperationError {
         while (arrayInput[pointer] != '#'){
             if (at.contains(arrayInput[pointer]) || (tr.getType(arrayInput[pointer]).equals("digit")) ){
 

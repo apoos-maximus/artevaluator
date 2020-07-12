@@ -1,11 +1,12 @@
 package test;
 
-import com.artevaluator.grammar.Exception.DecimalSyntaxError;
-import com.artevaluator.grammar.Exception.WrongLiteralException;
+import com.artevaluator.grammar.Exception.*;
 import com.artevaluator.grammar.Lexer;
 import com.artevaluator.grammar.Token;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -43,7 +44,49 @@ class LexerTest {
     }
 
     @Test
-    public void should_return_tokenStream () throws DecimalSyntaxError {
+    public void should_throw_exception_EmptyParenthesisError () {
+
+        //given
+        String input = "1+2+3/45+()";
+
+        //when
+        Lexer sampleLexer = new Lexer(input);
+        Executable executable = () -> sampleLexer.tokenize();
+
+        //then
+        assertThrows(EmptyParenthesisError.class, executable);
+    }
+
+    @Test
+    public void should_throw_operandExpectedError () {
+        //given
+        String input = "1+2+*3/4/(56+78)89";
+
+        //when
+        Lexer sampleLexer = new Lexer(input);
+        Executable executable = () -> sampleLexer.tokenize();
+
+        //then
+        assertThrows(OperatorRequiredError.class, executable);
+    }
+
+    @ParameterizedTest
+    @CsvSource({"1+2+4-loj(45)" , "1+2+4-sir(45)", "1+2+4-coo(45)", "1+2+4-tin(45)"})
+    public void should_throw_UnrecognisedOperationError (String input) {
+        //given
+
+
+        //when
+        Lexer sampleLexer = new Lexer(input);
+        Executable executable = () -> sampleLexer.tokenize();
+
+        //then
+        assertThrows(UnrecognisedOperationError.class, executable);
+    }
+
+
+    @Test
+    public void should_return_tokenStream () throws DecimalSyntaxError, EmptyParenthesisError, OperatorRequiredError, UnrecognisedOperationError {
 
         //given
         String input = "1+2*log(3)##";
