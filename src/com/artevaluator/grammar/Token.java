@@ -22,6 +22,7 @@ public class Token {
     public String getVal(){
         return value;
     }
+    public String getType() {return type;  }
     public Boolean tokCheckVal(String a){
         if(value.equals(a))return true;
         else return false;

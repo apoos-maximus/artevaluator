@@ -1,4 +1,7 @@
 package com.artevaluator.grammar;
+import com.artevaluator.grammar.Exception.DecimalSyntaxError;
+import com.artevaluator.grammar.Exception.WrongLiteralException;
+
 import java.util.*;
 
 public class Lexer {
@@ -13,7 +16,7 @@ public class Lexer {
     enum opState{
         OPw,OPd,accept
     };
-    Token operand() {
+    Token operand() throws DecimalSyntaxError {
         Token opnd = new Token("operand","");
         opnd.buildToken(arrayInput[pointer-1]);
 
@@ -40,8 +43,7 @@ public class Lexer {
                                                                                 pointer++;
                                                                                 }
                             else if (arrayInput[pointer] == '.'){
-                                System.out.println("decimal syntax error");
-                                System.exit(0);
+                                throw new DecimalSyntaxError();
                             }
                             else opSt = opState.accept;
                             break;
@@ -311,7 +313,7 @@ public class Lexer {
 
 
 
-    public  void   tokenize() {
+    public  void   tokenize() throws WrongLiteralException, DecimalSyntaxError {
         while (arrayInput[pointer] != '#'){
             if (at.contains(arrayInput[pointer]) || (tr.getType(arrayInput[pointer]).equals("digit")) ){
 
@@ -386,8 +388,7 @@ public class Lexer {
             }
             else
             {
-                System.out.println("Wrong literal !");
-                System.exit(0);
+                    throw new WrongLiteralException(arrayInput[pointer]);
             }
 
 

@@ -1,4 +1,6 @@
 package com.artevaluator;
+import com.artevaluator.grammar.Exception.DecimalSyntaxError;
+import com.artevaluator.grammar.Exception.WrongLiteralException;
 import com.artevaluator.grammar.Lexer;
 import  com.artevaluator.grammar.Token;
 import  com.artevaluator.grammar.Parser;
@@ -11,7 +13,7 @@ import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws WrongLiteralException, DecimalSyntaxError {
         Scanner sc = new Scanner(System.in);
         String exp = sc.nextLine();
 
@@ -19,14 +21,9 @@ public class Main {
         lexr.tokenize();
         ArrayList<Token> a = lexr.getTokenized();
         a.add(new Token("EOF","EOF"));
-//        for (Token token : a) {
-//            System.out.println(token.tokToString() + " ");
-//        }
 
         Parser parsr = new Parser(a);
         System.out.println(parsr.isValid());
-//        System.out.println(parsr.getAST());
-//        parsr.printAST();
 
         Addition add = new Addition();
         Sine sin = new Sine();
