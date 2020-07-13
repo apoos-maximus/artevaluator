@@ -19,7 +19,7 @@ class LexerTest {
     public void should_throw_exception_onWrongLiteral () {
 
         //given
-        String input = "1+2+5$67";
+        String input = "1+2+5$67##";
 
         //when
         Lexer sampleLexer = new Lexer(input);
@@ -33,7 +33,7 @@ class LexerTest {
     public void should_throw_exception_DecimalSyntaxError () {
 
         //given
-        String input = "1+2+3.45.5+67";
+        String input = "1+2+3.45.5+67##";
 
         //when
         Lexer sampleLexer = new Lexer(input);
@@ -47,7 +47,7 @@ class LexerTest {
     public void should_throw_exception_EmptyParenthesisError () {
 
         //given
-        String input = "1+2+3/45+()";
+        String input = "1+2+3/45+(34)##";
 
         //when
         Lexer sampleLexer = new Lexer(input);
@@ -58,9 +58,9 @@ class LexerTest {
     }
 
     @Test
-    public void should_throw_operandExpectedError () {
+    public void should_throw_operatorExpectedError () {
         //given
-        String input = "1+2+*3/4/(56+78)89";
+        String input = "1+2+*3/4/(56+78)89##";
 
         //when
         Lexer sampleLexer = new Lexer(input);
@@ -71,7 +71,7 @@ class LexerTest {
     }
 
     @ParameterizedTest
-    @CsvSource({"1+2+4-loj(45)" , "1+2+4-sir(45)", "1+2+4-coo(45)", "1+2+4-tin(45)"})
+    @CsvSource({"1+2+4-loj(45)##" , "1+2+4-sir(45)##", "1+2+4-coo(45)##", "1+2+4-tin(45)##"})
     public void should_throw_UnrecognisedOperationError (String input) {
         //given
 

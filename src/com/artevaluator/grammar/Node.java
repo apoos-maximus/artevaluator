@@ -9,6 +9,8 @@ public class Node {
     Boolean isLeaf;
     int childCount;
     Map<String,Node> ch;
+    Node left;
+    Node right;
     Map<String,Operator> ops;
 
     public Boolean checkType(String a){

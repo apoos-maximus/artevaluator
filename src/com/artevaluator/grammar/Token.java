@@ -2,6 +2,8 @@ package com.artevaluator.grammar;
 
 import com.sun.org.apache.xpath.internal.operations.Bool;
 
+import java.util.Objects;
+
 public class Token {
 
      String type;
@@ -30,6 +32,17 @@ public class Token {
     public Boolean tokCheckType(String a){
         if(type.equals(a)) return true;
         else return false;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        Token tk = (Token)o;
+        return this.type.equals(tk.type) && this.value.equals(tk.value);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(type, value);
     }
 };
 

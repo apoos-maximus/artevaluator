@@ -1,5 +1,8 @@
 package com.artevaluator.grammar;
 
+import com.artevaluator.grammar.Exception.ExpressionSyntaxError;
+import com.artevaluator.grammar.Exception.OpenParenthesisError;
+
 import java.util.ArrayList;
 
 public class Parser {
@@ -14,7 +17,7 @@ public class Parser {
         return tokenStream.get(tokPointer);
     }
 
-    NodePack expr() {
+    NodePack expr() throws OpenParenthesisError, ExpressionSyntaxError {
         NodePack result = new NodePack();
         NodePack a = new NodePack();
         NodePack b = new NodePack();
@@ -35,7 +38,7 @@ public class Parser {
         return result;
     }
 
-    NodePack eprime(){
+    NodePack eprime() throws OpenParenthesisError, ExpressionSyntaxError {
         NodePack result = new NodePack();
         NodePack a = new NodePack();
         NodePack b = new NodePack();
@@ -79,7 +82,7 @@ public class Parser {
         return result;
     }
 
-    NodePack term(){
+    NodePack term() throws OpenParenthesisError, ExpressionSyntaxError {
         NodePack result = new NodePack();
         NodePack a = new NodePack();
         NodePack b = new NodePack();
@@ -100,7 +103,7 @@ public class Parser {
         return  result;
     }
 
-    NodePack tprime(){
+    NodePack tprime() throws OpenParenthesisError, ExpressionSyntaxError {
         NodePack result = new NodePack();
         NodePack a = new NodePack();
         NodePack b = new NodePack();
@@ -143,7 +146,7 @@ public class Parser {
         return result;
     }
 
-    NodePack factor(){
+    NodePack factor() throws OpenParenthesisError, ExpressionSyntaxError {
         NodePack result = new NodePack();
         NodePack a = new NodePack();
         NodePack b = new NodePack();
@@ -158,7 +161,7 @@ public class Parser {
             }
             else if(curTok.tokCheckVal(")") == false){
                 result.result = false;
-                System.out.println("Syntax error (expr): ')' expected ");
+                throw new OpenParenthesisError();
             }
 
             else curTok = nextToken();
@@ -174,15 +177,14 @@ public class Parser {
                 if((a = expr()).result == false) result.result = false;
                 else if(curTok.tokCheckVal(")") == false) {
                     result.result = false;
-                    System.out.println("Syntax error f(x): ')' expected ");
+                    throw new OpenParenthesisError();
                 }
                 else curTok = nextToken();
                 if(result.result){
                     result.aNode.addChild("only",a.aNode);
                 }
             } else {
-                System.out.println("syntax error");
-                result.result = false;
+                throw new ExpressionSyntaxError();
             }
 
         }
@@ -191,13 +193,12 @@ public class Parser {
             curTok = nextToken();
         }
         else {
-            System.out.println("Syntax Error !");
-            result.result = false;
+            throw new ExpressionSyntaxError();
         }
     return result;
     }
 
-    public Boolean isValid(){
+    public Boolean isValid() throws OpenParenthesisError, ExpressionSyntaxError {
         curTok = nextToken();
         NodePack am = expr();
         if(am.result == false){

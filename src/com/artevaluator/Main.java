@@ -12,7 +12,11 @@ import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args) throws WrongLiteralException, DecimalSyntaxError, EmptyParenthesisError, OperatorRequiredError, UnrecognisedOperationError {
+    public static void main(String[] args) throws WrongLiteralException,
+            DecimalSyntaxError,
+            EmptyParenthesisError,
+            OperatorRequiredError,
+            UnrecognisedOperationError, OpenParenthesisError, ExpressionSyntaxError {
         Scanner sc = new Scanner(System.in);
         String exp = sc.nextLine();
 
@@ -27,7 +31,6 @@ public class Main {
         Addition add = new Addition();
         Sine sin = new Sine();
         System.out.println(parsr.getVal());
-
 
     }
 }
