@@ -16,6 +16,11 @@ public class Node {
     public Boolean checkType(String a){
         return  data.tokCheckType(a);
     }
+
+    /*
+     * three type of child nodes :-
+     * left, right, only
+     */
     public Boolean addChild(String a,Node b){
 
         if(childCount > 0) {

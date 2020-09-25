@@ -19,6 +19,7 @@ public class Main {
             UnrecognisedOperationError, OpenParenthesisError, ExpressionSyntaxError {
         Scanner sc = new Scanner(System.in);
         String exp = sc.nextLine();
+        exp = exp.trim();
 
         Lexer lexr = new Lexer(exp+"##");
         lexr.tokenize();
